@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Message = require('../models/message');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
@@ -61,6 +62,22 @@ router.post('/authenticate', (req, res, next) => {
 //Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user: req.user});
+});
+
+router.post('/message', (req, res) => {
+    let newMessage = new Message({
+        name: req.body.name,
+        email: req.body.email,
+        message: req.body.message
+    });
+
+    Message.addMessage(newMessage, (err, user) => {
+        if(err){
+            res.json({success: false, msg: 'Something went wrong.'});
+        }else{
+            res.json({success: true, msg: 'Your message has been sent!'});
+        }
+    });
 });
 
 module.exports = router;

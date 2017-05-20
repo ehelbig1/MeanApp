@@ -5,6 +5,36 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const nodemailer = require('nodemailer');
+
+
+/*let poolConfig = {
+    host: 'smtp.mail.yahoo.com',
+    port: '465',
+    secure: false,
+    auth: {
+        user: 'ehelbig1@yahoo.com',
+        pass: 'ElBandido21@%'
+    },
+    requreTLS: false
+};
+
+let transporter = nodemailer.createTransport(poolConfig);
+
+let mailOptions = {
+    from: 'me',
+    to: 'ehelbig1@yahoo.com',
+    subject: 'test',
+    text: 'test',
+    html: '<h1>Test</h1>'
+};
+
+transporter.sendMail(mailOptions, (err, info) => {
+    if(err){
+        console.log(err);
+    }
+    console.log('Message sent')
+})*/
 
 //Connect to database
 mongoose.connect(config.database);
