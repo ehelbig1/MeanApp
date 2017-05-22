@@ -776,7 +776,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "img {\n  margin: auto; }\n", ""]);
 
 // exports
 
@@ -882,7 +882,7 @@ module.exports = "<h2 class=\"page-header\">Dashbord</h2>\n<h4>Search by keyword
 /***/ 181:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron text-center\">\n<img src=\"../../../../assets/img/mean.png\">\n  <div>\n    <a class=\"btn btn-primary\" [routerLink]=\"['/register']\">Register</a><a class=\"btn btn-default\" [routerLink]=\"['/login']\">Login</a>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <h3>MongoDB and Mongoose</h3>\n    <p>The foundation of any application is the database. This application makes use of MongoDB, a NoSql database. The mongoose framework is used to make connection and changes to the data.</p>\n  </div>\n  <div class=\"col-md-4\">\n    <h3>NodeJs and Express</h3>\n    <p>The server for this app was created using NodeJs and the Express framework. This server was built from the ground up and every request is handled by hand writted code.</p>\n  </div>\n  <div class=\"col-md-4\">\n    <h3>Angular</h3>\n    <p>Everything you see on this website, the front-end, was created using the Angular framework. This site takes advantage of many of the modules and services provided with this framework.</p>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"jumbotron text-center\">\n<img class=\"img-responsive\" alt=\"MEAN Logo\" src=\"../../../../assets/img/mean.png\">\n  <div>\n    <a class=\"btn btn-primary\" [routerLink]=\"['/register']\">Register</a><a class=\"btn btn-default\" [routerLink]=\"['/login']\">Login</a>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-4\">\n    <h3>MongoDB and Mongoose</h3>\n    <p>The foundation of any application is the database. This application makes use of MongoDB, a NoSql database. The mongoose framework is used to make connection and changes to the data.</p>\n  </div>\n  <div class=\"col-md-4\">\n    <h3>NodeJs and Express</h3>\n    <p>The server for this app was created using NodeJs and the Express framework. This server was built from the ground up and every request is handled by hand writted code.</p>\n  </div>\n  <div class=\"col-md-4\">\n    <h3>Angular</h3>\n    <p>Everything you see on this website, the front-end, was created using the Angular framework. This site takes advantage of many of the modules and services provided with this framework.</p>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
