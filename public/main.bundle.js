@@ -54,7 +54,7 @@ var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_10__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'register', component: __WEBPACK_IMPORTED_MODULE_9__components_register_register_component__["a" /* RegisterComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_8__components_login_login_component__["a" /* LoginComponent */] },
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_11__components_dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_15__guards_auth_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_16__guards_permission_guard__["a" /* PermissionGuard */]] },
+    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_11__components_dashboard_dashboard_component__["a" /* DashboardComponent */], },
     { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_12__components_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_15__guards_auth_guard__["a" /* AuthGuard */]] }
 ];
 var AppModule = (function () {
@@ -80,6 +80,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* ReactiveFormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["HttpModule"],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["JsonpModule"],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages__["FlashMessagesModule"]
         ],
@@ -177,6 +178,21 @@ var DashboardComponent = (function () {
                 }
                 console.log(_this.results);
             });
+        });
+    };
+    /*this.foursquareService.getVenues().subscribe(res => {
+      console.log(res)
+      console.log(res.response.venues[0].name)
+      for(let i = 0; i < res.response.venues.length; i++){
+        console.log(res.response.venues[i].name);
+      }
+    })*/
+    DashboardComponent.prototype.getPhoto = function () {
+        var _this = this;
+        this.foursquareService.getVenuePhoto().subscribe(function (res) {
+            console.log(res);
+            console.log(res.response.photos.items[0].user.photo.suffix);
+            _this.venuePhoto = res.response.photos.items[0].user.photo.suffix;
         });
     };
     return DashboardComponent;
@@ -936,7 +952,7 @@ module.exports = "        <section id=\"contact\">\n            <div class=\"con
 /***/ 182:
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Dashbord</h2>\n<h4>Search by keyword for venues near you!</h4>\n<span class=\"text-info\">eg. Coffee</span>\n\n<form [formGroup]='form' (ngSubmit)='searchVenues(form.value)' novalidate>\n    <div class=\"form-group\">\n        <input formControlName='keyword' class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"search for...\" required>\n    </div>\n    <input class=\"btn btn-primary\" type=\"submit\">\n</form>\n\n<div class=\"panel\" *ngFor='let result of results'>\n    <h1 class=\"panel-head\">{{ result.name }}</h1>\n    <p>{{ result.id }}</p>\n    <ul>Location: \n        <li>{{ result.location.street }}</li>\n        <li>{{ result.location.cityState }}</li>\n    </ul>\n</div>"
+module.exports = "<h2 class=\"page-header\">Dashbord</h2>\n<h4>Search by keyword for venues near you!</h4>\n<span class=\"text-info\">eg. Coffee</span>\n\n<form [formGroup]='form' (ngSubmit)='searchVenues(form.value)' novalidate>\n    <div class=\"form-group\">\n        <input formControlName='keyword' class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"search for...\" required>\n    </div>\n    <input class=\"btn btn-primary\" type=\"submit\">\n</form>\n\n<div class=\"panel\" *ngFor='let result of results'>\n    <h1 class=\"panel-head\">{{ result.name }}</h1>\n    <p>{{ result.id }}</p>\n    <ul>Location: \n        <li>{{ result.location.street }}</li>\n        <li>{{ result.location.cityState }}</li>\n    </ul>\n</div>\n\n<button (click)='getPhoto()'>Get Photo</button>\n\n<div>{{ venuePhoto }}</div>"
 
 /***/ }),
 
@@ -1012,8 +1028,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var FoursquareService = (function () {
-    function FoursquareService(http) {
+    function FoursquareService(http, jsonp) {
         this.http = http;
+        this.jsonp = jsonp;
+        this.client_id = 'HP3TJGFYLBTQCLAH11PCM1LXXFXAF52WCX5WGQDFLDGFTCT4';
+        this.client_secret = '5FANRGCB3IG323UQX3VBMZCPMT51HLHLR04X5Q5I0VFQWDIC';
     }
     FoursquareService.prototype.getLocation = function () {
         return this.http.get('http://ipinfo.io')
@@ -1023,14 +1042,18 @@ var FoursquareService = (function () {
         return this.http.get("https://api.foursquare.com/v2/venues/search?v=20161016&ll=" + location + "&query=" + keyword + "&intent=checkin&client_id=HP3TJGFYLBTQCLAH11PCM1LXXFXAF52WCX5WGQDFLDGFTCT4&client_secret=5FANRGCB3IG323UQX3VBMZCPMT51HLHLR04X5Q5I0VFQWDIC")
             .map(function (res) { return res.json(); });
     };
+    FoursquareService.prototype.getVenuePhoto = function () {
+        return this.http.get("https://foursquare.com/oauth2/authenticate?client_id=" + this.client_id + "&response_type=code&redirect_uri=https://www.meandev.me")
+            .map(function (res) { return res.json(); });
+    };
     return FoursquareService;
 }());
 FoursquareService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["Jsonp"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["Jsonp"]) === "function" && _b || Object])
 ], FoursquareService);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=foursquare.service.js.map
 
 /***/ }),
