@@ -6,16 +6,19 @@ h2, h3{
     background: $alice-blue;
 }
 
+.footer{
+    margin-top: 60px;
+}
+
 footer{
     background: $black;
     position: fixed;
     color: white;
     padding: 10px 0 0 0;
-    margin-top: 20px;
     bottom: 0px;
     width: 100%;
-    z-index: 3;
 }
+
 
 
 
