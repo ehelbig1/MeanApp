@@ -952,7 +952,7 @@ module.exports = "        <section id=\"contact\">\n            <div class=\"con
 /***/ 182:
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Dashbord</h2>\n<h4>Search by keyword for venues near you!</h4>\n<span class=\"text-info\">eg. Coffee</span>\n\n<form [formGroup]='form' (ngSubmit)='searchVenues(form.value)' novalidate>\n    <div class=\"form-group\">\n        <input formControlName='keyword' class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"search for...\" required>\n    </div>\n    <input class=\"btn btn-primary\" type=\"submit\">\n</form>\n\n<div class=\"panel\" *ngFor='let result of results'>\n    <h1 class=\"panel-head\">{{ result.name }}</h1>\n    <p>{{ result.id }}</p>\n    <ul>Location: \n        <li>{{ result.location.street }}</li>\n        <li>{{ result.location.cityState }}</li>\n    </ul>\n</div>\n\n<button (click)='getPhoto()'>Get Photo</button>\n\n<div>{{ venuePhoto }}</div>"
+module.exports = "<h2 class=\"page-header\">Dashbord</h2>\n<h4>Search by keyword for venues near you!</h4>\n<span class=\"text-info\">eg. Coffee</span>\n\n<form [formGroup]='form' (ngSubmit)='searchVenues(form.value)' novalidate>\n    <div class=\"form-group\">\n        <input formControlName='keyword' class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"search for...\" required>\n    </div>\n    <input class=\"btn btn-primary\" type=\"submit\">\n</form>\n\n<div class=\"panel\" *ngFor='let result of results'>\n    <h1 class=\"panel-head\">{{ result.name }}</h1>\n    <p>{{ result.id }}</p>\n    <ul>Location: \n        <li>{{ result.location.street }}</li>\n        <li>{{ result.location.cityState }}</li>\n    </ul>\n</div>\n\n<a href=\"https://foursquare.com/oauth2/authenticate?client_id=HP3TJGFYLBTQCLAH11PCM1LXXFXAF52WCX5WGQDFLDGFTCT4&response_type=token&redirect_uri=https://www.meandev.me/dashboard\">Test</a>"
 
 /***/ }),
 
@@ -1043,7 +1043,7 @@ var FoursquareService = (function () {
             .map(function (res) { return res.json(); });
     };
     FoursquareService.prototype.getVenuePhoto = function () {
-        return this.http.get("https://foursquare.com/oauth2/authenticate?client_id=" + this.client_id + "&response_type=code&redirect_uri=https://www.meandev.me")
+        return this.jsonp.get("https://foursquare.com/oauth2/authenticate?client_id=HP3TJGFYLBTQCLAH11PCM1LXXFXAF52WCX5WGQDFLDGFTCT4&response_type=token&redirect_uri=http://www.meandev.me")
             .map(function (res) { return res.json(); });
     };
     return FoursquareService;
